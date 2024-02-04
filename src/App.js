@@ -9,6 +9,7 @@ import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 function App() {
   const [image, setImage] = useState(target);
   const [tempURL, setTempURL] = useState(target)
+  const [text, setText] = useState("")
   const fileInputRef = useRef(null);
   const [progress, setProgress] = useState(0)
 
@@ -20,7 +21,15 @@ function App() {
     uploadBytes(storageRef, image).then(async (snapshot) => {
       console.log('Uploaded a blob or file!');
       const new_url = await getDownloadURL(snapshot.ref)
-      const res = await axios.post("http://127.0.0.1:5000/predict_brain_tumor", {url: new_url})
+      const res = await axios.post("http://127.0.0.1:5000/predict_pneumonia", {url: new_url})
+      let label = ""
+      if (parseFloat(res.data.probability) >= 0.90) {
+        label = "Likely to be Pneumonia"
+      }
+      else {
+        label = "Unlikely to be Pneumonia"
+      }
+      setText(label)
       console.log(res)
       console.log(new_url)
       console.log(snapshot)
@@ -54,9 +63,9 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{display: "flex", flexDirection: "column", alignContent: "center"}}>
       <div class="pb-5" onClick={handleImageClick}>
-        <img class="rounded mx-auto d-block" alt="preview image" style={{ width: "auto", maxHeight: "50%" }} src={tempURL}/>
+        <img class="rounded mx-auto d-block" alt="preview image" style={{ width: "auto", maxHeight: "500px" }} src={tempURL}/>
       </div>
       
         {/*<div className="App">
@@ -71,10 +80,11 @@ function App() {
         </div>
 
   </div>*/}
-      <form onSubmit={handleSubmit}>
+      <form style={{display: "flex", justifyContent: "center"}} onSubmit={handleSubmit}>
         <input type="file" ref={fileInputRef} onChange={handleChange} accept="image/png, image/jpeg " style={{ display: 'none' }} />
-              <button type="submit">Hi</button>
+              <button type="submit">Submit</button>
             </form>
+        <h1 style={{textAlign:"center"}}>{text}</h1>
       
     </div>
   );
