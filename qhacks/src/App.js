@@ -13,20 +13,19 @@ function App() {
 
   const handleChange = (event) => {
     event.preventDefault();
-
-    setImage(event.target.files[0]);
-    
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
     /*console.log(event.target.files[0]);*/
   }
 
   return (
     <div className="App">
-      <h1>App For Now Please Change</h1>
-      <p>Hello world</p>
-
       <div>
         <h1>FORM:</h1>
-          <form onSubmit={handleSubmit}>          
+          <img alt="preview image" src={image}/>        
+
+          <form onSubmit={handleSubmit}>
             <input type="file" id="avatar" name="avatar" onChange={handleChange} accept="image/png, image/jpeg" />
             <button type="submit">Hi</button>
           </form>
