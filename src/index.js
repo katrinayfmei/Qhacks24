@@ -19,7 +19,7 @@ root.render(
       }}
     >
       <Header />
-      <div className='container py-4'>
+      <div className='container py-3'>
         <App />
       </div>
     </Auth0Provider>,

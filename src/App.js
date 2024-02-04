@@ -55,7 +55,14 @@ function App() {
 
   return (
     <div>
-      <div class="pb-5" onClick={handleImageClick}>
+      <form onSubmit={handleSubmit}>
+        <input type="file" ref={fileInputRef} onChange={handleChange} accept="image/png, image/jpeg " style={{ display: 'none' }} />
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-secondary mx-2" onClick={handleImageClick}>Update Image</button>
+          <button type="submit" class="btn btn-outline-success mx-2">Submit Image</button>
+        </div>
+      </form> 
+      <div class="m-3" onClick={handleImageClick}>
         <img class="rounded mx-auto d-block" alt="preview image" style={{ width: "auto", maxHeight: "50%" }} src={tempURL}/>
       </div>
       
@@ -70,12 +77,7 @@ function App() {
             </form>
         </div>
 
-  </div>*/}
-      <form onSubmit={handleSubmit}>
-        <input type="file" ref={fileInputRef} onChange={handleChange} accept="image/png, image/jpeg " style={{ display: 'none' }} />
-              <button type="submit">Hi</button>
-            </form>
-      
+  </div>*/}     
     </div>
   );
 }
