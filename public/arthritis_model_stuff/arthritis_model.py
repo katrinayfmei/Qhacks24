@@ -47,7 +47,7 @@ model_fit = model.fit(train_dataset,
                       validation_data=validation_dataset)
 
 # Load and preprocess the image for prediction
-img = tf.keras.preprocessing.image.load_img('public/arthritis_model_stuff/arthritis_data/notarthritis.jpg', target_size=(400, 400))
+img = tf.keras.preprocessing.image.load_img('public/arthritis_model_stuff/arthritis_data/itsarthritis.jpg', target_size=(400, 400))
 img_array = tf.keras.preprocessing.image.img_to_array(img)
 img_array = tf.expand_dims(img_array, 0)  # Create a batch
 img_array = img_array / 255.0  # Rescale the image
