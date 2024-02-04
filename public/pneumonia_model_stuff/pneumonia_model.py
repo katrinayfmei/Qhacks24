@@ -15,12 +15,12 @@ import numpy as np
 train = ImageDataGenerator(rescale = 1/255)
 validation = ImageDataGenerator(rescale = 1/255)
 
-train_dataset = train.flow_from_directory("pneumonia\pneumonia data/test", 
+train_dataset = train.flow_from_directory("public/pneumonia_model_stuff/pneumonia data/train", 
                                           target_size = (400,400), 
                                           batch_size = 16, 
                                           class_mode = 'binary')
 
-validation_dataset = validation.flow_from_directory("pneumonia/pneumonia data/val", 
+validation_dataset = validation.flow_from_directory("public/pneumonia_model_stuff/pneumonia data/val", 
                                           target_size = (400,400), 
                                           batch_size = 16, 
                                           class_mode = 'binary')
@@ -47,7 +47,7 @@ model_fit = model.fit(train_dataset,
                       validation_data=validation_dataset)
 
 # Load and preprocess the image for prediction
-img = tf.keras.preprocessing.image.load_img('pneumonia/pneumonia data/test/PNEUMONIA/person1_virus_7.jpeg', target_size=(400, 400))
+img = tf.keras.preprocessing.image.load_img('public/pneumonia_model_stuff/pneumonia data/test/NORMAL/IM-0007-0001.jpeg', target_size=(400, 400))
 img_array = tf.keras.preprocessing.image.img_to_array(img)
 img_array = tf.expand_dims(img_array, 0)  # Create a batch
 img_array = img_array / 255.0  # Rescale the image
